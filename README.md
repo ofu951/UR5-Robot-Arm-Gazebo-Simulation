@@ -16,7 +16,7 @@ This repository contains a ROS 2 Jazzy workspace for simulating Universal Robots
 After cloning this repository, run the automated setup script:
 
 ```bash
-git clone git@github.com:YOUR_USERNAME/UR5-Robot-Arm-Gazebo-Simulation.git
+git clone git@github.com:ofu951/UR5-Robot-Arm-Gazebo-Simulation.git
 cd UR5-Robot-Arm-Gazebo-Simulation
 source /opt/ros/jazzy/setup.bash
 ./setup_workspace.sh
