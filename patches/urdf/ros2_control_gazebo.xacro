@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gazebo Harmonic için ros2_control hardware interface -->
+  <xacro:include filename="$(find ur_description)/urdf/inc/ur_joint_control.xacro" />
+  <xacro:include filename="$(find ur_description)/urdf/inc/ur_sensors.xacro" />
+
+  <xacro:macro name="ur_ros2_control_gazebo" params="
+    name
+    tf_prefix
+    initial_positions_file
+    ">
+    
+    <!-- Initial positions'ı yükle -->
+    <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)}" />
+    
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystemInterface</plugin>
+      </hardware>
+      <xacro:ur_joint_control_description
+        tf_prefix="${tf_prefix}"
+        initial_positions="${initial_positions}"
+      />
+      <xacro:ur_sensors
+        tf_prefix="${tf_prefix}"
+      />
+    </ros2_control>
+  </xacro:macro>
+  
+  <!-- Macro'yu çağır - arg olarak al -->
+  <xacro:arg name="initial_positions_file" default="$(find ur_description)/config/initial_positions.yaml"/>
+  <xacro:ur_ros2_control_gazebo
+    name="ur"
+    tf_prefix=""
+    initial_positions_file="$(arg initial_positions_file)"
+  />
+</robot>
+

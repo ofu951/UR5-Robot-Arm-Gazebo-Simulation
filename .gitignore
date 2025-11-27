@@ -25,9 +25,12 @@ Thumbs.db
 *.tmp
 *.bak
 *.log
+*.backup
+**/.git.backup/
 
 # Gazebo
 ~/.gazebo/
 
+# Source packages (cloned from GitHub)
 src/
 gazebo_ros_ws/

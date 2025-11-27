@@ -11,41 +11,28 @@ This repository contains a ROS 2 Jazzy workspace for simulating Universal Robots
 
 ## Installation
 
-### 1. Install ROS 2 Jazzy
+### Quick Setup (Recommended)
 
-Follow the official [ROS 2 Jazzy installation guide](https://docs.ros.org/en/jazzy/Installation.html).
-
-### 2. Install Required ROS 2 Packages
+After cloning this repository, run the automated setup script:
 
 ```bash
-sudo apt update
-sudo apt install -y \
-    ros-jazzy-controller-manager \
-    ros-jazzy-joint-state-broadcaster \
-    ros-jazzy-joint-trajectory-controller \
-    ros-jazzy-gz-ros2-control \
-    ros-jazzy-ros-gz-sim \
-    ros-jazzy-ur-controllers \
-    ros-jazzy-ur-description \
-    ros-jazzy-robot-state-publisher \
-    ros-jazzy-rviz2 \
-    ros-jazzy-xacro
-```
-
-### 3. Install Gazebo Harmonic
-
-```bash
-sudo curl -sSL https://get.gazebosim.org | sh
-```
-
-### 4. Build the Workspace
-
-```bash
-cd ~/ur5_ws
+git clone git@github.com:YOUR_USERNAME/UR5-Robot-Arm-Gazebo-Simulation.git
+cd UR5-Robot-Arm-Gazebo-Simulation
 source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install
+./setup_workspace.sh
 source install/setup.bash
 ```
+
+The setup script will:
+1. Install all required ROS 2 packages
+2. Install Gazebo Harmonic (if not already installed)
+3. Clone the Universal Robots source packages
+4. Apply modifications for Gazebo Harmonic support
+5. Build the workspace
+
+### Manual Setup
+
+If you prefer manual setup, see `SETUP_INSTRUCTIONS.md` for detailed steps.
 
 ## Usage
 
