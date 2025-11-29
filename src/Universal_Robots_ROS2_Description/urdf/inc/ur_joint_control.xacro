@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="ur_joint_control_description" params="
+    tf_prefix
+    initial_positions:=${dict(shoulder_pan_joint=0.0,shoulder_lift_joint=-1.57,elbow_joint=0.0,wrist_1_joint=-1.57,wrist_2_joint=0.0,wrist_3_joint=0.0)}
+    ">
+    <joint name="${tf_prefix}shoulder_pan_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <!-- initial position for the mock system and simulation -->
+        <param name="initial_value">${initial_positions['shoulder_pan_joint']}</param>
+      </state_interface>
+      <transmission name="${tf_prefix}shoulder_pan_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${tf_prefix}shoulder_pan_joint">
+          <hardware_interface>position</hardware_interface>
+        </joint>
+        <actuator name="${tf_prefix}shoulder_pan_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+    </joint>
+    <joint name="${tf_prefix}shoulder_lift_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <!-- initial position for the mock system and simulation -->
+        <param name="initial_value">${initial_positions['shoulder_lift_joint']}</param>
+      </state_interface>
+      <transmission name="${tf_prefix}shoulder_lift_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${tf_prefix}shoulder_lift_joint">
+          <hardware_interface>position</hardware_interface>
+        </joint>
+        <actuator name="${tf_prefix}shoulder_lift_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+    </joint>
+    <joint name="${tf_prefix}elbow_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <!-- initial position for the mock system and simulation -->
+        <param name="initial_value">${initial_positions['elbow_joint']}</param>
+      </state_interface>
+      <transmission name="${tf_prefix}elbow_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${tf_prefix}elbow_joint">
+          <hardware_interface>position</hardware_interface>
+        </joint>
+        <actuator name="${tf_prefix}elbow_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+    </joint>
+    <joint name="${tf_prefix}wrist_1_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <!-- initial position for the mock system and simulation -->
+        <param name="initial_value">${initial_positions['wrist_1_joint']}</param>
+      </state_interface>
+      <transmission name="${tf_prefix}wrist_1_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${tf_prefix}wrist_1_joint">
+          <hardware_interface>position</hardware_interface>
+        </joint>
+        <actuator name="${tf_prefix}wrist_1_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+    </joint>
+    <joint name="${tf_prefix}wrist_2_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <!-- initial position for the mock system and simulation -->
+        <param name="initial_value">${initial_positions['wrist_2_joint']}</param>
+      </state_interface>
+      <transmission name="${tf_prefix}wrist_2_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${tf_prefix}wrist_2_joint">
+          <hardware_interface>position</hardware_interface>
+        </joint>
+        <actuator name="${tf_prefix}wrist_2_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+    </joint>
+    <joint name="${tf_prefix}wrist_3_joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <!-- initial position for the mock system and simulation -->
+        <param name="initial_value">${initial_positions['wrist_3_joint']}</param>
+      </state_interface>
+      <transmission name="${tf_prefix}wrist_3_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${tf_prefix}wrist_3_joint">
+          <hardware_interface>position</hardware_interface>
+        </joint>
+        <actuator name="${tf_prefix}wrist_3_motor">
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+    </joint>
+  </xacro:macro>
+</robot>
