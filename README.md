@@ -40,7 +40,7 @@ If you prefer manual setup, see `SETUP_INSTRUCTIONS.md` for detailed steps.
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-source ~/ur5_ws/install/setup.bash
+source ~/UR5-Robot-Arm-Gazebo-Simulation/install/setup.bash
 ros2 launch ur_simulation_gazebo ur_sim_control.launch.py ur_type:=ur5
 ```
 
