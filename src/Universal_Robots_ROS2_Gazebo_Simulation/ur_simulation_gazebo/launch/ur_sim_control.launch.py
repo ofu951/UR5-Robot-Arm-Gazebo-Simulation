@@ -31,6 +31,7 @@
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
+    ExecuteProcess,
     IncludeLaunchDescription,
     OpaqueFunction,
     TimerAction,
@@ -38,10 +39,10 @@ from launch.actions import (
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
+import os
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.parameter_descriptions import ParameterValue
-import os
 
 
 def launch_setup(context, *args, **kwargs):
@@ -129,48 +130,7 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
-    # Masa SDF tanımı
-    table_sdf_string = (
-        '<?xml version="1.0"?>'
-        '<sdf version="1.7">'
-        '<model name="table">'
-        '<static>true</static>'
-        '<link name="link">'
-        '<collision name="collision">'
-        '<geometry><box><size>1.2 0.8 0.05</size></box></geometry>'
-        '</collision>'
-        '<visual name="visual">'
-        '<geometry><box><size>1.2 0.8 0.05</size></box></geometry>'
-        '<material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>'
-        '</visual>'
-        '<inertial><mass>50.0</mass><inertia><ixx>6.67</ixx><iyy>8.33</iyy><izz>8.33</izz></inertia></inertial>'
-        '</link>'
-        '</model>'
-        '</sdf>'
-    )
-    
-    # Masa spawn node - Gazebo başladıktan sonra spawn et
-    spawn_table = TimerAction(
-        period=3.0,
-        actions=[
-            Node(
-        package="ros_gz_sim",
-        executable="create",
-        name="spawn_table",
-        arguments=[
-            "-world", "default",
-            "-string", table_sdf_string,
-            "-name", "table",
-            "-x", "0.0",
-            "-y", "0.0",
-                    "-z", "0.4",
-                ],
-                output="screen",
-            )
-        ],
-    )
-    
-    # Robot spawn - masanın üzerine yerleştir
+    # Robot spawn - yere yerleştir (masa yok)
     spawn_robot = TimerAction(
         period=3.0,
         actions=[
@@ -183,7 +143,7 @@ def launch_setup(context, *args, **kwargs):
                     "-topic", "robot_description",
                     "-x", "0.0",
                     "-y", "0.0",
-                    "-z", "0.475",
+                    "-z", "0.0",  # Yere yerleştir (masa yok)
                 ],
                 output="screen",
             )
@@ -252,13 +212,43 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
+    # Initial position setter - robot spawn olduktan sonra home position'a getir
+    # Script path'ini bul
+    script_path = os.path.expanduser("~/UR5-Robot-Arm-Gazebo-Simulation/set_initial_positions.py")
+    
+    initial_position_setter = TimerAction(
+        period=5.0,  # Robot spawn olduktan 5 saniye sonra
+        actions=[
+            ExecuteProcess(
+                cmd=["python3", script_path],
+                name="ur5_initial_position_setter",
+                output="screen",
+            )
+        ],
+    )
+    
+    # Joint Controller GUI - trackbar ile kontrol
+    gui_script_path = os.path.expanduser("~/UR5-Robot-Arm-Gazebo-Simulation/ur5_joint_controller_gui.py")
+    
+    joint_controller_gui = TimerAction(
+        period=2.0,  # Gazebo açıldıktan 2 saniye sonra GUI'yi aç
+        actions=[
+            ExecuteProcess(
+                cmd=["python3", gui_script_path],
+                name="ur5_joint_controller_gui",
+                output="screen",
+            )
+        ],
+    )
+
     nodes_to_start = [
         robot_state_publisher_node,
         joint_state_publisher_gui,
         gazebo,
-        spawn_table,
-        spawn_robot,
+        spawn_robot,  # Masa kaldırıldı
         joint_bridge,
+        initial_position_setter,  # Home position'a getir
+        joint_controller_gui,  # Trackbar GUI
         rviz_node,
     ]
 

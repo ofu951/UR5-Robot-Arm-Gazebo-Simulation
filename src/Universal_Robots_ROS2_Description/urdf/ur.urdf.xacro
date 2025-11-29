@@ -43,52 +43,56 @@
      <origin xyz="0 0 0" rpy="0 0 0" />          <!-- position robot in the world -->
    </xacro:ur_robot>
 
-  <!-- Gazebo joint position controller plugins - her joint için ayrı gazebo bloğu -->
-  <gazebo reference="shoulder_pan_joint">
+  <!-- Gazebo joint position controller plugins - my_rrr_robot gibi model seviyesinde -->
+  <!-- p_gain değerleri artırıldı - eklemlerin pozisyona sabitlenmesi için -->
+  <gazebo>
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>shoulder_pan_joint</joint_name>
-      <p_gain>20.0</p_gain>
+      <p_gain>100.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>10.0</d_gain>
+      <initial_position>0.0</initial_position>
     </plugin>
-  </gazebo>
-  
-  <gazebo reference="shoulder_lift_joint">
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>shoulder_lift_joint</joint_name>
-      <p_gain>20.0</p_gain>
+      <p_gain>100.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>10.0</d_gain>
+      <initial_position>-1.57</initial_position>
     </plugin>
-  </gazebo>
-  
-  <gazebo reference="elbow_joint">
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>elbow_joint</joint_name>
-      <p_gain>20.0</p_gain>
+      <p_gain>100.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>10.0</d_gain>
+      <initial_position>0.0</initial_position>
     </plugin>
-  </gazebo>
-  
-  <gazebo reference="wrist_1_joint">
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>wrist_1_joint</joint_name>
-      <p_gain>20.0</p_gain>
+      <p_gain>100.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>10.0</d_gain>
+      <initial_position>-1.57</initial_position>
     </plugin>
-  </gazebo>
-  
-  <gazebo reference="wrist_2_joint">
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>wrist_2_joint</joint_name>
-      <p_gain>20.0</p_gain>
+      <p_gain>100.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>10.0</d_gain>
+      <initial_position>0.0</initial_position>
     </plugin>
-  </gazebo>
-  
-  <gazebo reference="wrist_3_joint">
     <plugin filename="gz-sim-joint-position-controller-system"
             name="gz::sim::systems::JointPositionController">
       <joint_name>wrist_3_joint</joint_name>
-      <p_gain>20.0</p_gain>
+      <p_gain>100.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>10.0</d_gain>
+      <initial_position>0.0</initial_position>
     </plugin>
   </gazebo>
 
