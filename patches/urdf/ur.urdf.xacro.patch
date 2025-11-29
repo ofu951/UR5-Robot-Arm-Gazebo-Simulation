@@ -1,0 +1,59 @@
+diff --git a/urdf/ur.urdf.xacro b/urdf/ur.urdf.xacro
+index 3600a38..c00b031 100644
+--- a/urdf/ur.urdf.xacro
++++ b/urdf/ur.urdf.xacro
+@@ -42,4 +42,54 @@
+      >
+      <origin xyz="0 0 0" rpy="0 0 0" />          <!-- position robot in the world -->
+    </xacro:ur_robot>
++
++  <!-- Gazebo joint position controller plugins - her joint için ayrı gazebo bloğu -->
++  <gazebo reference="shoulder_pan_joint">
++    <plugin filename="gz-sim-joint-position-controller-system"
++            name="gz::sim::systems::JointPositionController">
++      <joint_name>shoulder_pan_joint</joint_name>
++      <p_gain>20.0</p_gain>
++    </plugin>
++  </gazebo>
++  
++  <gazebo reference="shoulder_lift_joint">
++    <plugin filename="gz-sim-joint-position-controller-system"
++            name="gz::sim::systems::JointPositionController">
++      <joint_name>shoulder_lift_joint</joint_name>
++      <p_gain>20.0</p_gain>
++    </plugin>
++  </gazebo>
++  
++  <gazebo reference="elbow_joint">
++    <plugin filename="gz-sim-joint-position-controller-system"
++            name="gz::sim::systems::JointPositionController">
++      <joint_name>elbow_joint</joint_name>
++      <p_gain>20.0</p_gain>
++    </plugin>
++  </gazebo>
++  
++  <gazebo reference="wrist_1_joint">
++    <plugin filename="gz-sim-joint-position-controller-system"
++            name="gz::sim::systems::JointPositionController">
++      <joint_name>wrist_1_joint</joint_name>
++      <p_gain>20.0</p_gain>
++    </plugin>
++  </gazebo>
++  
++  <gazebo reference="wrist_2_joint">
++    <plugin filename="gz-sim-joint-position-controller-system"
++            name="gz::sim::systems::JointPositionController">
++      <joint_name>wrist_2_joint</joint_name>
++      <p_gain>20.0</p_gain>
++    </plugin>
++  </gazebo>
++  
++  <gazebo reference="wrist_3_joint">
++    <plugin filename="gz-sim-joint-position-controller-system"
++            name="gz::sim::systems::JointPositionController">
++      <joint_name>wrist_3_joint</joint_name>
++      <p_gain>20.0</p_gain>
++    </plugin>
++  </gazebo>
++
+ </robot>
